@@ -1,0 +1,61 @@
+[package]
+name = "city-simulator"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# ECS Framework
+bevy_ecs = "0.13"
+
+# Math library (optimized for SIMD)
+glam = "0.25"
+
+# Memory layout for GPU interop
+bytemuck = { version = "1.14", features = ["derive"] }
+
+# Graph algorithms (for pathfinding)
+petgraph = "0.6"
+
+# Spline math for curved roads
+kurbo = "0.10"
+
+# Random number generation for random tick strategies
+rand = "0.8"
+
+# Serialization for save/load
+serde = { version = "1.0", features = ["derive"] }
+bincode = "1.3"
+
+# WASM bindings (optional - only used in wasm builds)
+wasm-bindgen = { version = "0.2", optional = true }
+wasm-bindgen-futures = { version = "0.4", optional = true }
+js-sys = { version = "0.3", optional = true }
+web-sys = { version = "0.3", features = [
+ "console",
+ "Performance",
+ "Window",
+ "Document",
+ "HtmlCanvasElement",
+ "WebGl2RenderingContext",
+], optional = true }
+
+# Parallelism (for native builds, can be configured for wasm)
+rayon = { version = "1.8", optional = true }
+
+[features]
+default = ["rayon"]
+wasm = ["wasm-bindgen", "wasm-bindgen-futures", "js-sys", "web-sys"]
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[profile.wasm-release]
+inherits = "release"
+opt-level = "z"
+lto = true
