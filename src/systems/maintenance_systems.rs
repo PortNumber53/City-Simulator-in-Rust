@@ -118,9 +118,9 @@ pub fn disaster_system(
  mut commands: Commands,
  mut disasters: Query<(Entity, &mut Disaster)>,
  mut buildings: Query<(Entity, &GridPosition, &mut Flammability)>,
- time: Res<Time>,
+ _time: Res<Time>,
 ) {
- let dt = time.delta_seconds();
+ let dt = _time.delta_seconds();
  
  for (disaster_entity, mut disaster) in disasters.iter_mut() {
  disaster.remaining_ticks = disaster.remaining_ticks.saturating_sub((dt * 60.0) as u32);
@@ -161,7 +161,7 @@ pub fn disaster_system(
 /// Spawns disasters randomly
 pub fn spawn_disaster_system(
  mut commands: Commands,
- time: Res<Time>,
+ _time: Res<Time>,
 ) {
  let mut rng = rand::thread_rng();
  

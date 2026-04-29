@@ -9,7 +9,7 @@ pub fn nature_healing_system(
  nature_system: Res<NatureSystem>,
  mut vegetation_query: Query<(Entity, &GridPosition, &mut VegetationState, Option<&mut Maintenance>)>,
  grid: Res<CityGrid>,
- time: Res<Time>,
+ _time: Res<Time>,
 ) {
  let base_growth = nature_system.base_growth;
  let tick_count = nature_system.random_tick_count.min(vegetation_query.iter().count());
@@ -66,7 +66,7 @@ pub fn fire_spread_system(
  time: Res<Time>,
 ) {
  let dt = time.delta_seconds();
- let mut to_ignite = ToIgniteBuffer::default();
+ let to_ignite = ToIgniteBuffer::default();
  
  for (fire_entity, mut fire, position) in fire_query.iter_mut() {
  if !fire.is_active() {

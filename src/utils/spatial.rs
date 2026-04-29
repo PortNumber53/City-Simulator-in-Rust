@@ -107,7 +107,7 @@ where
 
  fn subdivide(&mut self) {
  let center = self.bounds.center();
- let half_size = self.bounds.size() * 0.5;
+ let _half_size = self.bounds.size() * 0.5;
 
  let ne_bounds = BoundingBox::new(center, self.bounds.max);
  let nw_bounds = BoundingBox::new(
@@ -164,7 +164,7 @@ where
 
 /// Grid-based spatial hash
 pub struct SpatialHashGrid {
- cell_size: f32,
+ _cell_size: f32,
  inv_cell_size: f32,
  width: usize,
  height: usize,
@@ -178,7 +178,7 @@ impl SpatialHashGrid {
  let cell_count = grid_width * grid_height;
  
  Self {
- cell_size,
+ _cell_size: cell_size,
  inv_cell_size: 1.0 / cell_size,
  width: grid_width,
  height: grid_height,

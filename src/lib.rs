@@ -22,7 +22,7 @@ pub struct CitySimulator {
 impl Default for CitySimulator {
  fn default() -> Self {
  let mut world = World::new();
- let mut schedule = Schedule::default();
+ let schedule = Schedule::default();
  
  // Initialize resources
  world.insert_resource(Time::default());

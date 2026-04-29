@@ -111,10 +111,10 @@ pub fn bus_stop_system(
  mut stops: Query<(&mut BusStop, &mut WaitingQueue, &GridPosition)>,
  mut vehicles: Query<(&mut Agent, &mut PathProgress, &mut TransitCapacity), With<FixedPath>>,
 ) {
- for (mut stop, mut queue, _position) in stops.iter_mut() {
- for (_vehicle, mut progress, mut capacity) in vehicles.iter_mut() {
+ for (stop, mut queue, _position) in stops.iter_mut() {
+ for (_vehicle, progress, mut capacity) in vehicles.iter_mut() {
  if progress.is_complete() {
- let boarding = (capacity.available_seats() as f32 * stop.stop_position) as u16;
+ let _boarding = (capacity.available_seats() as f32 * stop.stop_position) as u16;
  let alighting = (capacity.current_passengers as f32 * 0.3) as u16;
  capacity.current_passengers = capacity.current_passengers.saturating_sub(alighting);
 
@@ -146,7 +146,7 @@ pub fn pathfinding_decision_system(
  _stations: Query<(&TransitStop, &StationInfluence)>,
  _transit_version: Res<TransitVersion>,
 ) {
- for (_entity, mut itinerary, _commuter) in query.iter_mut() {
+ for (_entity, itinerary, _commuter) in query.iter_mut() {
  if let Some(JourneyLeg::Transit { .. }) = itinerary.current_leg() {
  // In a real implementation, check if line still exists
  // If not, trigger re-route
